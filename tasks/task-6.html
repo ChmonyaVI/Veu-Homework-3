@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Home Work #3</title>
+  </head>
+  <body>
+    <style>
+      .container {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .blocks-couples {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+      }
+      .title {
+        text-align: center;
+        font-size: 18px;
+        margin-bottom: 30px;
+      }
+      .block-boys,
+      .block-girls,
+      .choose-block {
+        border: 1px solid red;
+        padding: 20px;
+        width: 200px;
+      }
+      .boys-list,
+      .girls-list {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .boys,
+      .girls {
+        cursor: pointer;
+        padding: 5px;
+        border: 1px solid white;
+      }
+      .boys:hover {
+        transition: all 0.3s ease 0s;
+        color: blue;
+        border: 1px solid blue;
+      }
+      .girls:hover {
+        transition: all 0.3s ease 0s;
+        color: blue;
+        border: 1px solid blue;
+      }
+      .activeBorder {
+        padding: 4px;
+        border: 2px solid blue;
+      }
+      .btn {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      .activeBorder {
+        padding: 4px;
+        border: 2px solid blue;
+      }
+    </style>
+    <div class="wrapper">
+      <div id="task6">
+        <div class="container">
+          <div class="blocks-couples">
+            <div class="block-boys">
+              <div class="title">Парни</div>
+              <ol class="boys-list">
+                <li
+                  v-for="(boysName, index) in boysList"
+                  :key="index"
+                  class="boys"
+                  :class="{['activeBorder']: chooseBoys1 === boysName }"
+                  @click="chooseBoys(index, 'chooseBoys1')"
+                  >{{boysName}}</li
+                >
+              </ol>
+            </div>
+            <div class="block-girls">
+              <div class="title">Девушки</div>
+              <ol class="girls-list">
+                <li
+                  v-for="(girlsName, index) in girlsList"
+                  :key="index"
+                  class="girls"
+                  :class="{['activeBorder']: chooseGirls1 === girlsName }"
+                  @click="chooseGirls(index, 'chooseGirls1')"
+                  >{{girlsName}}</li
+                >
+              </ol>
+            </div>
+          </div>
+          <button class="btn" @click="addCouple" :disabled="addSelectedCouple">Добавить</button>
+          <div class="choose-block">
+            <div class="title">Выбранные пары</div>
+            <ol class="couples-list">
+              <li v-for="(couple, index) in coupleList" :key="index" class="couple">{{couple}}</li>
+            </ol>
+          </div>
+          <button @click="clearCoupleList" type="submit" class="btn">Очистить список</button>
+        </div>
+      </div>
+      <br />
+    </div>
+    <script>
+      const { createApp } = Vue;
+
+      const task6 = createApp({
+        data() {
+          return {
+            boysList: ["Иван", "Петро", "Степан", "Олег"],
+            girlsList: ["Оксана", "Наталья", "Татьяна", "Анна"],
+            coupleList: ["Сергей - Ольга", "Станислав - Роксалана"],
+            chooseBoys1: null,
+            chooseGirls1: null,
+            selectedCouple: null,
+          };
+        },
+        methods: {
+          chooseBoys(index) {
+            this.chooseBoys1 = this.boysList[index];
+            console.log(this.chooseBoys1);
+          },
+          chooseGirls(index) {
+            this.chooseGirls1 = this.girlsList[index];
+            console.log(this.chooseGirls1);
+          },
+          addCouple() {
+            if (this.chooseBoys1 && this.chooseGirls1) {
+              const couple = `${this.chooseBoys1} - ${this.chooseGirls1}`;
+              this.coupleList.push(couple);
+              const boysIndex = this.boysList.indexOf(this.chooseBoys1);
+              if (boysIndex !== -1) {
+                this.boysList.splice(boysIndex, 1);
+              }
+              const girlsIndex = this.girlsList.indexOf(this.chooseGirls1);
+              if (girlsIndex !== -1) {
+                this.girlsList.splice(girlsIndex, 1);
+              }
+              this.chooseBoys1 = null;
+              this.chooseGirls1 = null;
+            }
+          },
+          clearCoupleList() {
+            return (this.coupleList = []);
+          },
+        },
+        computed: {
+          addSelectedCouple() {
+            return this.chooseBoys1 == null || this.chooseGirls1 == null;
+          },
+        },
+      });
+
+      task6.mount("#task6");
+    </script>
+  </body>
+</html>

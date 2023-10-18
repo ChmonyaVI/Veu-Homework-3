@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Home Work #3</title>
+  </head>
+  <body>
+    <style>
+      .container {
+        border: 1px solid red;
+        width: 400px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .title {
+        font-size: 18px;
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+      .laben-name {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+      }
+      .text-task {
+        font-size: 20px;
+        margin-bottom: 30px;
+      }
+    </style>
+    <div class="wrapper">
+      <div id="task7">
+        <div class="text-task"
+          >Задача 7. Динамічний пошук. Є список працівників і поле пошуку. При введенні відображаються усі, які містять
+          вказаний фрагмент
+        </div>
+        <div class="container">
+          <div class="title">Список работников</div>
+          <div class="block__search">
+            <label class="laben-name">Имя работника <input v-model="employeeName" type="text" /></label>
+          </div>
+          <ul class="block__employee-list">
+            <li class="employee__item" v-for="item in filteredEmployees " :key="item"> {{ item }} </li>
+          </ul>
+        </div>
+      </div>
+      <br />
+    </div>
+    <script>
+      const { createApp } = Vue;
+      const task7 = createApp({
+        data() {
+          return {
+            listEmployee: [
+              "Иванов И.И.",
+              "Петров П.С.",
+              "Сидоров С.В.",
+              "Смирнов С.А.",
+              "Кузнецов К.М.",
+              "Васильев В.А.",
+              "Попов П.В.",
+              "Соколов С.Н.",
+              "Лебедев Л.И.",
+              "Козлов К.В.",
+              "Новиков Н.А.",
+              "Морозов М.С.",
+              "Волков В.В.",
+              "Алексеев А.И.",
+              "Лебедева Л.С.",
+              "Семенов С.С.",
+              "Егоров Е.Е.",
+              "Павлов П.П.",
+              "Козырев К.И.",
+              "Степанов С.П.",
+            ],
+            employeeName: null,
+          };
+        },
+        computed: {
+          filteredEmployees() {
+            if (!this.employeeName) {
+              return this.listEmployee;
+            } else {
+              return this.listEmployee.filter((worker) =>
+                worker.toLowerCase().includes(this.employeeName.toLowerCase())
+              );
+            }
+          },
+        },
+        methods: {},
+      });
+
+      task7.mount("#task7");
+    </script>
+  </body>
+</html>

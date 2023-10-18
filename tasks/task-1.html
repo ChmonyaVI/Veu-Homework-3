@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Home Work #3</title>
+  </head>
+  <body>
+    <style></style>
+    <div class="wrapper">
+      <div id="task1">
+        <label>Введите число <input type="text" v-model="numberFromUser" /></label>
+        <div>{{numberFromUser}} сантиметорв в метрах равна: {{numberInMeters}}</div>
+        <div> <div>{{numberFromUser}} сантиметорв в километрах равна: {{numberInKilometors}}</div></div>
+      </div>
+      <br />
+    </div>
+    <script>
+      const { createApp } = Vue;
+
+      const task1 = createApp({
+        data() {
+          return {
+            numberFromUser: null,
+          };
+        },
+        methods: {},
+        computed: {
+          numberInMeters() {
+            return this.numberFromUser / 100;
+          },
+          numberInKilometors() {
+            return this.numberFromUser / 100000;
+          },
+        },
+      });
+
+      task1.mount("#task1");
+    </script>
+  </body>
+</html>

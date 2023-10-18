@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Home Work #3</title>
+  </head>
+  <body>
+    <style>
+      .container {
+        border: 1px solid red;
+        width: 400px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .title {
+        font-size: 18px;
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+      .block__search {
+        display: flex;
+        gap: 15px;
+      }
+      .text-task {
+        font-size: 20px;
+        margin-bottom: 30px;
+      }
+    </style>
+    <div class="wrapper">
+      <div id="task7">
+        <div class="text-task"
+          >Задача 7. Динамічний пошук. Є список працівників і поле пошуку. При введенні відображаються усі, які містять
+          вказаний фрагмент
+        </div>
+        <div class="container">
+          <div class="title">Фильтр поиска</div>
+          <div class="block__search">
+            <label class="laben-name">Марка автомобиля</label>
+            <select v-model="modelFromSelect" class="">
+              <option v-for="item in autoList" :value="item" :key="item"> {{ item }} </option>
+            </select>
+            <label class="laben-name">Год автомобиля</label>
+            <select v-model="yearFromSelect" class="">
+              <option v-for="item in yearList" :value="item" :key="item"> {{ item }} </option>
+            </select>
+          </div>
+          <ul class="block__employee-list">
+            <li class="employee__item" v-for="item in filteredAutos" :key="item"> {{ item }} </li>
+          </ul>
+        </div>
+      </div>
+      <br />
+    </div>
+    <script>
+      const { createApp } = Vue;
+      const task7 = createApp({
+        data() {
+          return {
+            autoList: ["Audi", "Mercedes", "Opel", "Datsun", "BMW", "Mazda"],
+            yearList: ["2000", "2002", "2004", "2007", "2017", "2018"],
+            allList: [
+              "Mercedes - 2018 р. - 25000",
+              "Opel - 2000 р. - 5000;",
+              "Opel - 2004 р. - 15000",
+              "Audi - 2000 р. - 7000",
+            ],
+            modelFromSelect: null,
+            yearFromSelect: null,
+          };
+        },
+        computed: {
+          filteredAutos() {
+            if (!this.modelFromSelect || !this.yearFromSelect) {
+              return this.allList;
+            } else {
+              return this.allList.filter(
+                (auto) =>
+                  auto.toLowerCase().includes(this.modelFromSelect.toLowerCase()) && auto.includes(this.yearFromSelect)
+              );
+            }
+          },
+        },
+        methods: {},
+      });
+
+      task7.mount("#task7");
+    </script>
+  </body>
+</html>

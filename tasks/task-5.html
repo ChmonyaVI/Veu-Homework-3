@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Home Work #3</title>
+  </head>
+  <body>
+    <style>
+      .container {
+        display: flex;
+        gap: 15px;
+      }
+      .title {
+        font-size: 20px;
+        font-weight: 500;
+      }
+      .left-list,
+      .right-list {
+        border: 1px solid black;
+        padding: 10px;
+      }
+      .athlete {
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid black;
+      }
+    </style>
+    <div class="wrapper">
+      <div id="task5">
+        <div class="container">
+          <div class="left-list">
+            <div class="title">Общий список</div>
+            <div class="block-left">
+              <div v-for="(athlete,index) in generalAthletesList" :key="index" class="athlete">
+                <div>{{athlete}}</div>
+                <button @click="moveInChooseList(index)">=></button>
+              </div>
+            </div>
+          </div>
+          <div class="right-list">
+            <div class="title">Выбранные для соревнования</div>
+            <div class="block-rifht">
+              <div v-for="(athlete,index) in selectedAthletesList" :key="index" class="athlete">
+                <div>{{athlete}}</div>
+                <button @click="moveInAllList(index)"><=</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+    </div>
+    <script>
+      const { createApp } = Vue;
+
+      const task5 = createApp({
+        data() {
+          return {
+            generalAthletesList: ["John Depp", "Sara Walker", "Den Miro", "Alan Woo"],
+            selectedAthletesList: ["Olga Sich", "Ivan Hai"],
+          };
+        },
+        methods: {
+          moveInChooseList(index) {
+            this.selectedAthletesList.push(this.generalAthletesList[index]);
+            this.generalAthletesList.splice(index, 1);
+          },
+          moveInAllList(index) {
+            this.generalAthletesList.push(this.selectedAthletesList[index]);
+            this.selectedAthletesList.splice(index, 1);
+          },
+        },
+        computed: {},
+      });
+
+      task5.mount("#task5");
+    </script>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Home Work #3</title>
+  </head>
+  <body>
+    <style>
+      .container {
+        display: flex;
+        gap: 15px;
+      }
+      .title {
+        font-size: 20px;
+        font-weight: 500;
+      }
+      .athlete-container,
+      .athlete-container {
+        border: 1px solid black;
+        padding: 10px;
+      }
+      .athlete {
+        border: 1px solid black;
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+    <div class="wrapper">
+      <div id="task5">
+        <div class="container">
+          <div class="list-container">
+            <h1>Загальний список</h1>
+            <div class="athlete-container">
+              <div v-for="(athlete,index) in generalAthletesList" :key="index" class="athlete">
+                <div>{{athlete}}</div>
+                <button @click="onSelect(index)">=>></button>
+              </div>
+            </div>
+          </div>
+          <div class="list-container">
+            <h1>Cписок обраних</h1>
+            <div class="athlete-container">
+              <div v-for="(athlete,index) in selectedAthletesList" :key="index" class="athlete">
+                <div>{{athlete}}</div>
+                <button @click="onDeselect(index)"><<=</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+    </div>
+    <script>
+      const { createApp } = Vue;
+
+      const task5 = createApp({
+        data() {
+          return {
+            generalAthletesList: ["John Depp", "Sara Walker", "Den Miro", "Alan Woo"],
+            selectedAthletesList: ["Olga Sich", "Ivan Hai"],
+          };
+        },
+        methods: {
+          onSelect(index) {
+            this.selectedAthletesList.push(this.generalAthletesList[index]);
+            this.generalAthletesList.splice(index, 1);
+          },
+          onDeselect(index) {
+            this.generalAthletesList.push(this.selectedAthletesList[index]);
+            this.selectedAthletesList.splice(index, 1);
+          },
+        },
+        computed: {},
+      });
+
+      task5.mount("#task5");
+    </script>
+  </body>
+</html> -->
